@@ -3,14 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion'
 const SLIDE_NAMES = [
   '', // hero - no label
   'Il Vuoto',
+  '— Pausa —',
   'Il Big Bang',
   'Le Prime Stelle',
+  '— Pausa —',
   'Le Ere Glaciali',
   '— Pausa —',
   'L\'Esplosione',
   'L\'Intelligenza',
   '— Pausa —',
   'La Singolarità',
+  '— Pausa —',
   'Genealogia',
   'L\'Orizzonte',
   'I Numeri',

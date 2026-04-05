@@ -20,19 +20,22 @@ interface Particle {
 const SLIDE_COLORS: [number, number, number][] = [
   [168, 85, 247],   // 0 hero - purple
   [76, 29, 149],    // 1 void - deep purple
-  [245, 158, 11],   // 2 bigbang - gold
-  [234, 88, 12],    // 3 stars - orange
-  [14, 165, 233],   // 4 ice - blue
-  [16, 185, 129],   // 5 quote persistence - green
-  [16, 185, 129],   // 6 cambrian - green
-  [168, 85, 247],   // 7 intelligence - purple
-  [234, 179, 8],    // 8 quote transformer - gold
-  [234, 179, 8],    // 9 singularity - gold
-  [52, 211, 153],   // 10 lineage - teal
-  [232, 121, 249],  // 11 horizon - pink
-  [192, 132, 252],  // 12 numbers - violet
-  [139, 92, 246],   // 13 galaxy - indigo
-  [100, 100, 120],  // 14 credits - grey
+  [245, 158, 11],   // 2 quote turing - gold
+  [245, 158, 11],   // 3 bigbang - gold
+  [234, 88, 12],    // 4 stars - orange
+  [14, 165, 233],   // 5 quote minsky - ice blue
+  [14, 165, 233],   // 6 ice - blue
+  [16, 185, 129],   // 7 quote persistence - green
+  [16, 185, 129],   // 8 cambrian - green
+  [168, 85, 247],   // 9 intelligence - purple
+  [234, 179, 8],    // 10 quote transformer - gold
+  [234, 179, 8],    // 11 singularity - gold
+  [168, 85, 247],   // 12 quote hinton exit - purple
+  [52, 211, 153],   // 13 lineage - teal
+  [232, 121, 249],  // 14 horizon - pink
+  [192, 132, 252],  // 15 numbers - violet
+  [139, 92, 246],   // 16 galaxy - indigo
+  [100, 100, 120],  // 17 credits - grey
 ]
 
 const PARTICLE_COUNT = 40

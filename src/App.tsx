@@ -26,9 +26,38 @@ import GalaxyMapSlide from './components/slides/GalaxyMapSlide'
 import CreditsSlide from './components/slides/CreditsSlide'
 import QuoteSlide from './components/slides/QuoteSlide'
 
-const TOTAL_SLIDES = 15
+const TOTAL_SLIDES = 18
 
-// Quote interlude data — real quotes at narrative pivots
+// Quote interludes at narrative pivots — real, verified historical quotes
+
+const QUOTE_TURING = {
+  quote: {
+    it: 'Propongo di considerare la questione: le macchine possono pensare?',
+    en: 'I propose to consider the question: can machines think?',
+  },
+  author: 'Alan Turing',
+  year: 1950,
+  context: {
+    it: 'La domanda che ha dato inizio a tutto',
+    en: 'The question that started it all',
+  },
+  accentColor: '#f59e0b', // bigbang gold
+}
+
+const QUOTE_MINSKY = {
+  quote: {
+    it: "Entro una generazione il problema di creare 'intelligenza artificiale' sara' sostanzialmente risolto.",
+    en: "Within a generation the problem of creating 'artificial intelligence' will substantially be solved.",
+  },
+  author: 'Marvin Minsky',
+  year: 1967,
+  context: {
+    it: "L'iperbole che precede la caduta",
+    en: 'The hubris that precedes the fall',
+  },
+  accentColor: '#0ea5e9', // ice blue — warning of winter ahead
+}
+
 const QUOTE_PERSISTENCE = {
   quote: {
     it: "Se hai un'intuizione che qualcosa e' giusto, ma tutti gli altri ti dicono che e' una stupidaggine... allora sei davvero su qualcosa.",
@@ -37,7 +66,7 @@ const QUOTE_PERSISTENCE = {
   author: 'Geoffrey Hinton',
   year: 2017,
   context: {
-    it: 'Durante gli inverni dell\'AI, tre ricercatori non si arresero',
+    it: "Durante gli inverni dell'AI, tre ricercatori non si arresero",
     en: 'During the AI winters, three researchers never gave up',
   },
   accentColor: '#10b981', // cambrian green — looking forward past winter
@@ -45,16 +74,30 @@ const QUOTE_PERSISTENCE = {
 
 const QUOTE_TRANSFORMER = {
   quote: {
-    it: "Attention is all you need.",
+    it: 'Attention is all you need.',
     en: 'Attention is all you need.',
   },
   author: 'Vaswani et al., Google Brain',
   year: 2017,
   context: {
-    it: 'Il paper che ha cambiato per sempre l\'intelligenza artificiale',
+    it: "Il paper che ha cambiato per sempre l'intelligenza artificiale",
     en: 'The paper that forever changed artificial intelligence',
   },
   accentColor: '#eab308', // singularity gold — birth of the LLM era
+}
+
+const QUOTE_HINTON_EXIT = {
+  quote: {
+    it: 'Mi consolo con la solita scusa: se non l\'avessi fatto io, l\'avrebbe fatto qualcun altro.',
+    en: 'I console myself with the normal excuse: if I hadn\'t done it, somebody else would have.',
+  },
+  author: 'Geoffrey Hinton',
+  year: 2023,
+  context: {
+    it: 'Il padre del deep learning lascia Google per parlare dei rischi',
+    en: 'The father of deep learning quits Google to speak about the risks',
+  },
+  accentColor: '#a855f7', // intelligence purple
 }
 
 function App() {
@@ -69,19 +112,22 @@ function App() {
     const colors = [
       'rgba(76, 29, 149, 0.08)',   // 0 hero
       'rgba(76, 29, 149, 0.06)',   // 1 void
-      'rgba(245, 158, 11, 0.06)',  // 2 bigbang
-      'rgba(234, 88, 12, 0.05)',   // 3 stars
-      'rgba(14, 165, 233, 0.06)',  // 4 ice
-      'rgba(16, 185, 129, 0.05)',  // 5 quote (persistence)
-      'rgba(16, 185, 129, 0.05)',  // 6 cambrian
-      'rgba(168, 85, 247, 0.06)',  // 7 intelligence
-      'rgba(234, 179, 8, 0.06)',   // 8 quote (transformer)
-      'rgba(234, 179, 8, 0.06)',   // 9 singularity
-      'rgba(52, 211, 153, 0.04)',  // 10 lineage
-      'rgba(232, 121, 249, 0.05)', // 11 horizon
-      'rgba(192, 132, 252, 0.05)', // 12 numbers
-      'rgba(139, 92, 246, 0.04)',  // 13 galaxy
-      'rgba(0, 0, 0, 0)',          // 14 credits
+      'rgba(245, 158, 11, 0.06)',  // 2 quote turing
+      'rgba(245, 158, 11, 0.06)',  // 3 bigbang
+      'rgba(234, 88, 12, 0.05)',   // 4 stars
+      'rgba(14, 165, 233, 0.06)',  // 5 quote minsky
+      'rgba(14, 165, 233, 0.06)',  // 6 ice
+      'rgba(16, 185, 129, 0.05)',  // 7 quote persistence
+      'rgba(16, 185, 129, 0.05)',  // 8 cambrian
+      'rgba(168, 85, 247, 0.06)',  // 9 intelligence
+      'rgba(234, 179, 8, 0.06)',   // 10 quote transformer
+      'rgba(234, 179, 8, 0.06)',   // 11 singularity
+      'rgba(168, 85, 247, 0.06)',  // 12 quote hinton exit
+      'rgba(52, 211, 153, 0.04)',  // 13 lineage
+      'rgba(232, 121, 249, 0.05)', // 14 horizon
+      'rgba(192, 132, 252, 0.05)', // 15 numbers
+      'rgba(139, 92, 246, 0.04)',  // 16 galaxy
+      'rgba(0, 0, 0, 0)',          // 17 credits
     ]
     return colors[activeSlide] || colors[0]
   }, [activeSlide])
@@ -116,19 +162,22 @@ function App() {
       <div ref={containerRef} className="scroll-container">
         <HeroSlide index={0} active={activeSlide === 0} />
         <VoidSlide index={1} active={activeSlide === 1} />
-        <BigBangSlide index={2} active={activeSlide === 2} />
-        <FirstStarsSlide index={3} active={activeSlide === 3} />
-        <IceAgeSlide index={4} active={activeSlide === 4} />
-        <QuoteSlide index={5} active={activeSlide === 5} {...QUOTE_PERSISTENCE} />
-        <CambrianSlide index={6} active={activeSlide === 6} />
-        <IntelligenceSlide index={7} active={activeSlide === 7} />
-        <QuoteSlide index={8} active={activeSlide === 8} {...QUOTE_TRANSFORMER} />
-        <SingularitySlide index={9} active={activeSlide === 9} />
-        <LineageSlide index={10} active={activeSlide === 10} />
-        <HorizonSlide index={11} active={activeSlide === 11} />
-        <NumbersSlide index={12} active={activeSlide === 12} />
-        <GalaxyMapSlide index={13} active={activeSlide === 13} />
-        <CreditsSlide index={14} active={activeSlide === 14} />
+        <QuoteSlide index={2} active={activeSlide === 2} {...QUOTE_TURING} />
+        <BigBangSlide index={3} active={activeSlide === 3} />
+        <FirstStarsSlide index={4} active={activeSlide === 4} />
+        <QuoteSlide index={5} active={activeSlide === 5} {...QUOTE_MINSKY} />
+        <IceAgeSlide index={6} active={activeSlide === 6} />
+        <QuoteSlide index={7} active={activeSlide === 7} {...QUOTE_PERSISTENCE} />
+        <CambrianSlide index={8} active={activeSlide === 8} />
+        <IntelligenceSlide index={9} active={activeSlide === 9} />
+        <QuoteSlide index={10} active={activeSlide === 10} {...QUOTE_TRANSFORMER} />
+        <SingularitySlide index={11} active={activeSlide === 11} />
+        <QuoteSlide index={12} active={activeSlide === 12} {...QUOTE_HINTON_EXIT} />
+        <LineageSlide index={13} active={activeSlide === 13} />
+        <HorizonSlide index={14} active={activeSlide === 14} />
+        <NumbersSlide index={15} active={activeSlide === 15} />
+        <GalaxyMapSlide index={16} active={activeSlide === 16} />
+        <CreditsSlide index={17} active={activeSlide === 17} />
       </div>
     </LangContext.Provider>
   )
