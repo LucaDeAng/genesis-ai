@@ -23,14 +23,16 @@ const SLIDE_COLORS: [number, number, number][] = [
   [245, 158, 11],   // 2 bigbang - gold
   [234, 88, 12],    // 3 stars - orange
   [14, 165, 233],   // 4 ice - blue
-  [16, 185, 129],   // 5 cambrian - green
-  [168, 85, 247],   // 6 intelligence - purple
-  [234, 179, 8],    // 7 singularity - gold
-  [52, 211, 153],   // 8 lineage - teal
-  [232, 121, 249],  // 9 horizon - pink
-  [192, 132, 252],  // 10 numbers - violet
-  [139, 92, 246],   // 11 galaxy - indigo
-  [100, 100, 120],  // 12 credits - grey
+  [16, 185, 129],   // 5 quote persistence - green
+  [16, 185, 129],   // 6 cambrian - green
+  [168, 85, 247],   // 7 intelligence - purple
+  [234, 179, 8],    // 8 quote transformer - gold
+  [234, 179, 8],    // 9 singularity - gold
+  [52, 211, 153],   // 10 lineage - teal
+  [232, 121, 249],  // 11 horizon - pink
+  [192, 132, 252],  // 12 numbers - violet
+  [139, 92, 246],   // 13 galaxy - indigo
+  [100, 100, 120],  // 14 credits - grey
 ]
 
 const PARTICLE_COUNT = 40

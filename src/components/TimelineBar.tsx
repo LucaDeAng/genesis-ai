@@ -6,14 +6,16 @@ const ERA_COLORS = [
   '#f59e0b',   // 2 Big Bang
   '#ea580c',   // 3 Prime Stelle
   '#0ea5e9',   // 4 Ere Glaciali
-  '#10b981',   // 5 Esplosione
-  '#a855f7',   // 6 Intelligenza
-  '#eab308',   // 7 Singolarita
-  '#34d399',   // 8 Genealogia
-  '#e879f9',   // 9 L'Orizzonte
-  '#c084fc',   // 10 I Numeri
-  '#8b5cf6',   // 11 La Mappa
-  '#ffffff',   // 12 Credits
+  '#10b981',   // 5 Quote (persistenza)
+  '#10b981',   // 6 Esplosione
+  '#a855f7',   // 7 Intelligenza
+  '#eab308',   // 8 Quote (transformer)
+  '#eab308',   // 9 Singolarita
+  '#34d399',   // 10 Genealogia
+  '#e879f9',   // 11 L'Orizzonte
+  '#c084fc',   // 12 I Numeri
+  '#8b5cf6',   // 13 La Mappa
+  '#ffffff',   // 14 Credits
 ]
 
 interface TimelineBarProps {

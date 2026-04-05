@@ -24,8 +24,38 @@ import HorizonSlide from './components/slides/HorizonSlide'
 import NumbersSlide from './components/slides/NumbersSlide'
 import GalaxyMapSlide from './components/slides/GalaxyMapSlide'
 import CreditsSlide from './components/slides/CreditsSlide'
+import QuoteSlide from './components/slides/QuoteSlide'
 
-const TOTAL_SLIDES = 13
+const TOTAL_SLIDES = 15
+
+// Quote interlude data — real quotes at narrative pivots
+const QUOTE_PERSISTENCE = {
+  quote: {
+    it: "Se hai un'intuizione che qualcosa e' giusto, ma tutti gli altri ti dicono che e' una stupidaggine... allora sei davvero su qualcosa.",
+    en: "If you have an intuition that something is right, and all the other people in the field tell you it's nonsense... then you're really onto something.",
+  },
+  author: 'Geoffrey Hinton',
+  year: 2017,
+  context: {
+    it: 'Durante gli inverni dell\'AI, tre ricercatori non si arresero',
+    en: 'During the AI winters, three researchers never gave up',
+  },
+  accentColor: '#10b981', // cambrian green — looking forward past winter
+}
+
+const QUOTE_TRANSFORMER = {
+  quote: {
+    it: "Attention is all you need.",
+    en: 'Attention is all you need.',
+  },
+  author: 'Vaswani et al., Google Brain',
+  year: 2017,
+  context: {
+    it: 'Il paper che ha cambiato per sempre l\'intelligenza artificiale',
+    en: 'The paper that forever changed artificial intelligence',
+  },
+  accentColor: '#eab308', // singularity gold — birth of the LLM era
+}
 
 function App() {
   const { activeSlide, containerRef } = useActiveSlide(TOTAL_SLIDES)
@@ -42,14 +72,16 @@ function App() {
       'rgba(245, 158, 11, 0.06)',  // 2 bigbang
       'rgba(234, 88, 12, 0.05)',   // 3 stars
       'rgba(14, 165, 233, 0.06)',  // 4 ice
-      'rgba(16, 185, 129, 0.05)',  // 5 cambrian
-      'rgba(168, 85, 247, 0.06)',  // 6 intelligence
-      'rgba(234, 179, 8, 0.06)',   // 7 singularity
-      'rgba(52, 211, 153, 0.04)',  // 8 lineage
-      'rgba(232, 121, 249, 0.05)', // 9 horizon
-      'rgba(192, 132, 252, 0.05)', // 10 numbers
-      'rgba(139, 92, 246, 0.04)',  // 11 galaxy
-      'rgba(0, 0, 0, 0)',          // 12 credits
+      'rgba(16, 185, 129, 0.05)',  // 5 quote (persistence)
+      'rgba(16, 185, 129, 0.05)',  // 6 cambrian
+      'rgba(168, 85, 247, 0.06)',  // 7 intelligence
+      'rgba(234, 179, 8, 0.06)',   // 8 quote (transformer)
+      'rgba(234, 179, 8, 0.06)',   // 9 singularity
+      'rgba(52, 211, 153, 0.04)',  // 10 lineage
+      'rgba(232, 121, 249, 0.05)', // 11 horizon
+      'rgba(192, 132, 252, 0.05)', // 12 numbers
+      'rgba(139, 92, 246, 0.04)',  // 13 galaxy
+      'rgba(0, 0, 0, 0)',          // 14 credits
     ]
     return colors[activeSlide] || colors[0]
   }, [activeSlide])
@@ -87,14 +119,16 @@ function App() {
         <BigBangSlide index={2} active={activeSlide === 2} />
         <FirstStarsSlide index={3} active={activeSlide === 3} />
         <IceAgeSlide index={4} active={activeSlide === 4} />
-        <CambrianSlide index={5} active={activeSlide === 5} />
-        <IntelligenceSlide index={6} active={activeSlide === 6} />
-        <SingularitySlide index={7} active={activeSlide === 7} />
-        <LineageSlide index={8} active={activeSlide === 8} />
-        <HorizonSlide index={9} active={activeSlide === 9} />
-        <NumbersSlide index={10} active={activeSlide === 10} />
-        <GalaxyMapSlide index={11} active={activeSlide === 11} />
-        <CreditsSlide index={12} active={activeSlide === 12} />
+        <QuoteSlide index={5} active={activeSlide === 5} {...QUOTE_PERSISTENCE} />
+        <CambrianSlide index={6} active={activeSlide === 6} />
+        <IntelligenceSlide index={7} active={activeSlide === 7} />
+        <QuoteSlide index={8} active={activeSlide === 8} {...QUOTE_TRANSFORMER} />
+        <SingularitySlide index={9} active={activeSlide === 9} />
+        <LineageSlide index={10} active={activeSlide === 10} />
+        <HorizonSlide index={11} active={activeSlide === 11} />
+        <NumbersSlide index={12} active={activeSlide === 12} />
+        <GalaxyMapSlide index={13} active={activeSlide === 13} />
+        <CreditsSlide index={14} active={activeSlide === 14} />
       </div>
     </LangContext.Provider>
   )
