@@ -1,5 +1,5 @@
-import { useCallback, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { useCallback, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { SlideWrapper } from '../SlideWrapper'
 import { useCanvas } from '../canvas/useCanvas'
 import { useMouseParallax } from '../../hooks/useMouseParallax'
@@ -27,6 +27,17 @@ export default function HeroSlide({ active, index }: HeroSlideProps) {
   const mouse = useMouseParallax(active)
   const particlesRef = useRef<Particle[]>([])
   const initedRef = useRef(false)
+  const clickCountRef = useRef(0)
+  const [easterEgg, setEasterEgg] = useState(false)
+
+  const handleParticleClick = useCallback(() => {
+    clickCountRef.current += 1
+    if (clickCountRef.current >= 3) {
+      setEasterEgg(true)
+      clickCountRef.current = 0
+      setTimeout(() => setEasterEgg(false), 5000)
+    }
+  }, [])
 
   const draw = useCallback((ctx: CanvasRenderingContext2D, w: number, h: number, t: number) => {
     if (!initedRef.current) {
@@ -186,6 +197,34 @@ export default function HeroSlide({ active, index }: HeroSlideProps) {
       active={active}
       canvas={<canvas ref={canvasRef} className="h-full w-full" style={{ display: 'block' }} />}
     >
+      {/* Easter egg: click the center particle 3 times */}
+      <button
+        onClick={handleParticleClick}
+        aria-label="Hidden"
+        tabIndex={-1}
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full z-[5] cursor-default opacity-0"
+        style={{ pointerEvents: active ? 'auto' : 'none' }}
+      />
+      {/* Easter egg message */}
+      <AnimatePresence>
+        {easterEgg && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: -20 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute left-1/2 top-[68%] -translate-x-1/2 z-[15] pointer-events-none text-center"
+          >
+            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/40">
+              {lang === 'it' ? 'Ciao viaggiatore' : 'Hello traveler'}
+            </p>
+            <p className="font-display text-sm text-white/60 mt-1 italic">
+              {lang === 'it' ? '"Can machines think?"' : '"Can machines think?"'}
+            </p>
+            <p className="font-mono text-[9px] text-white/25 mt-1">— Alan Turing, 1950</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div
         className="flex flex-col items-center justify-center text-center px-4"
         style={{ transform: `translate(${mouse.x * -20}px, ${mouse.y * -12}px)` }}
@@ -236,9 +275,20 @@ export default function HeroSlide({ active, index }: HeroSlideProps) {
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0, transition: { delay: 0.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
           }}
-          className="font-display text-base sm:text-lg md:text-xl text-white/50 tracking-[0.15em] uppercase mb-3"
+          className="font-display text-base sm:text-lg md:text-xl text-white/50 tracking-[0.15em] uppercase mb-2"
         >
           {lang === 'it' ? "La Storia dell'Intelligenza Artificiale" : 'The History of Artificial Intelligence'}
+        </motion.p>
+
+        {/* Reading time */}
+        <motion.p
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { delay: 1.1, duration: 0.6 } },
+          }}
+          className="font-mono text-[10px] tracking-[0.3em] text-white/25 uppercase"
+        >
+          {lang === 'it' ? 'un viaggio di 5 minuti' : 'a 5-minute journey'}
         </motion.p>
 
         {/* Bottom decorative line */}

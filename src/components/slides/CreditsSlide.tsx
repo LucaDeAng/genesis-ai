@@ -35,18 +35,33 @@ export default function CreditsSlide({ active, index }: Props) {
           initial={{ opacity: 0 }}
           animate={active ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-white/40 text-sm font-display tracking-[0.15em] uppercase mb-12"
+          className="text-white/40 text-sm font-display tracking-[0.15em] uppercase mb-10"
         >
           {lang === 'it'
             ? "La Storia dell'Intelligenza Artificiale"
             : 'The History of Artificial Intelligence'}
         </motion.p>
 
+        {/* Personal note */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="max-w-md mb-10 border-l-2 border-white/10 pl-4 text-left"
+        >
+          <p className="text-white/50 text-sm leading-relaxed italic">
+            {lang === 'it'
+              ? '"Ho costruito questo progetto per capire se potevo raccontare 76 anni di storia con il codice. Il risultato e\' quello che vedi. Spero ti abbia emozionato quanto ha emozionato me costruirlo."'
+              : '"I built this project to see if I could tell 76 years of history through code. The result is what you see. I hope it moved you as much as building it moved me."'}
+          </p>
+          <p className="text-white/30 text-xs mt-2 font-mono">— Luca</p>
+        </motion.div>
+
         {/* Credits */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
           className="space-y-6 mb-12"
         >
           <div>

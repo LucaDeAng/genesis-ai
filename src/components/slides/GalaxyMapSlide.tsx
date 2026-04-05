@@ -271,6 +271,15 @@ export default function GalaxyMapSlide({ active, index }: GalaxyMapSlideProps) {
 
   const handleMouseLeave = useCallback(() => setHovered(null), [])
 
+  const downloadPoster = useCallback(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const link = document.createElement('a')
+    link.download = `genesis-galaxy-map-${Date.now()}.png`
+    link.href = canvas.toDataURL('image/png')
+    link.click()
+  }, [canvasRef])
+
   const hoveredEra = hovered ? eras.find(e => e.id === hovered.era) : null
 
   return (
@@ -315,6 +324,18 @@ export default function GalaxyMapSlide({ active, index }: GalaxyMapSlideProps) {
           {milestones.length} MILESTONES &middot; 1950 &ndash; 2026
         </p>
       </motion.div>
+
+      {/* Download poster button */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={active ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+        onClick={downloadPoster}
+        className="absolute top-6 right-6 z-30 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur border border-white/10 text-[10px] font-mono uppercase tracking-wider text-white/50 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all pointer-events-auto"
+        aria-label="Download poster"
+      >
+        ↓ Download Poster
+      </motion.button>
 
       {/* Tooltip */}
       <AnimatePresence>
