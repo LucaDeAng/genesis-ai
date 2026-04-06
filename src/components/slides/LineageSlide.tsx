@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from 'react'
+import { useCallback, useState, useMemo, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createNoise2D } from 'simplex-noise'
 import { useCanvas } from '../canvas/useCanvas'
@@ -108,6 +108,8 @@ function hexToRgb(hex: string): [number, number, number] {
 
 export default function LineageSlide({ active, index }: Props) {
   const { lang } = useLang()
+  const langRef = useRef(lang)
+  useEffect(() => { langRef.current = lang }, [lang])
   const noise2D = useMemo(() => createNoise2D(), [])
   const [hoveredModel, setHoveredModel] = useState<string | null>(null)
   const [hoveredDiscovery, setHoveredDiscovery] = useState<string | null>(null)
@@ -150,8 +152,8 @@ export default function LineageSlide({ active, index }: Props) {
     ctx.fillStyle = 'rgba(255, 255, 255, 0.05)'
     ctx.font = '8px "JetBrains Mono", monospace'
     ctx.textAlign = 'center'
-    ctx.fillText('MODELLI ATTUALI', w * 0.5, h * 0.22 - 28)
-    ctx.fillText('SCOPERTE FONDAMENTALI', w * 0.5, h * 0.72 - 18)
+    ctx.fillText(langRef.current === 'it' ? 'MODELLI ATTUALI' : 'CURRENT MODELS', w * 0.5, h * 0.22 - 28)
+    ctx.fillText(langRef.current === 'it' ? 'SCOPERTE FONDAMENTALI' : 'KEY DISCOVERIES', w * 0.5, h * 0.72 - 18)
 
     // Draw connections
     const isAnyHovered = hoveredModel !== null || hoveredDiscovery !== null
@@ -317,7 +319,7 @@ export default function LineageSlide({ active, index }: Props) {
   return (
     <section data-slide={index} className="relative h-screen w-full flex-shrink-0 snap-start overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full pointer-events-none" style={{ display: 'block' }} />
-      <div className="absolute inset-0 z-10 cursor-crosshair" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} />
+      <div className="absolute inset-0 z-10 cursor-crosshair" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onTouchStart={handleMouseMove as any} onTouchMove={handleMouseMove as any} onTouchEnd={handleMouseLeave as any} />
 
       {/* Title */}
       <div className="absolute top-4 left-0 right-0 z-20 text-center pointer-events-none">

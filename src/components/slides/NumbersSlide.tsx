@@ -54,6 +54,15 @@ export default function NumbersSlide({ active, index }: Props) {
   const [birthYear, setBirthYear] = useState<string>('')
   const [confirmedYear, setConfirmedYear] = useState<number | null>(null)
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const year = parseInt(params.get('birthYear') || '', 10)
+    if (!isNaN(year) && year >= 1940 && year <= new Date().getFullYear()) {
+      setBirthYear(String(year))
+      setConfirmedYear(year)
+    }
+  }, [])
+
   const totalYears = new Date().getFullYear() - 1950
   const totalMilestones = milestones.length
   const totalEras = eras.length
@@ -97,7 +106,9 @@ export default function NumbersSlide({ active, index }: Props) {
       : `When I was born in ${confirmedYear}, ${when} ${birthMilestone.name} changed artificial intelligence forever.\n\nDiscover your AI year: `
   }, [confirmedYear, birthMilestone, lang])
 
-  const shareUrl = 'https://lucadeang.github.io/proteo/'
+  const shareUrl = confirmedYear
+    ? `https://lucadeang.github.io/proteo/?birthYear=${confirmedYear}`
+    : 'https://lucadeang.github.io/proteo/'
 
   const shareNative = async () => {
     if (navigator.share) {

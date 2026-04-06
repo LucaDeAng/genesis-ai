@@ -299,6 +299,9 @@ export default function GalaxyMapSlide({ active, index }: GalaxyMapSlideProps) {
         style={{ cursor: hovered ? 'pointer' : 'crosshair' }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleMouseMove as any}
+        onTouchMove={handleMouseMove as any}
+        onTouchEnd={handleMouseLeave as any}
       />
 
       {/* Title */}
@@ -318,7 +321,7 @@ export default function GalaxyMapSlide({ active, index }: GalaxyMapSlideProps) {
             backgroundClip: 'text',
           }}
         >
-          La Mappa dell&apos;Universo AI
+          {lang === 'it' ? "La Mappa dell'Universo AI" : 'The AI Universe Map'}
         </h2>
         <p className="text-white/40 text-sm mt-2 font-mono tracking-wider">
           {milestones.length} MILESTONES &middot; 1950 &ndash; 2026
