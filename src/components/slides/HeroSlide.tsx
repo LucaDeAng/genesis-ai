@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useForm } from '@formspree/react'
 import { SlideWrapper } from '../SlideWrapper'
 import { useCanvas } from '../canvas/useCanvas'
 import { useMouseParallax } from '../../hooks/useMouseParallax'
@@ -29,6 +30,7 @@ export default function HeroSlide({ active, index }: HeroSlideProps) {
   const initedRef = useRef(false)
   const clickCountRef = useRef(0)
   const [easterEgg, setEasterEgg] = useState(false)
+  const [formState, handleFormSubmit] = useForm('mdapylbn')
 
   const handleParticleClick = useCallback(() => {
     clickCountRef.current += 1
@@ -297,23 +299,81 @@ export default function HeroSlide({ active, index }: HeroSlideProps) {
             hidden: { scaleX: 0, opacity: 0 },
             visible: { scaleX: 1, opacity: 1, transition: { delay: 1, duration: 1, ease: [0.22, 1, 0.36, 1] } },
           }}
-          className="w-24 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent mt-6 mb-12"
+          className="w-24 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent mt-6 mb-8"
         />
 
-        {/* Scroll indicator — elegant line that grows */}
+        {/* Newsletter CTA */}
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 15 },
+            visible: { opacity: 1, y: 0, transition: { delay: 1.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+          }}
+          className="flex flex-col items-center w-full max-w-sm mb-6"
+        >
+          {formState.succeeded ? (
+            <p className="text-white/50 text-sm font-display">
+              {lang === 'it' ? 'Grazie! ✦' : 'Thanks! ✦'}
+            </p>
+          ) : (
+            <>
+              <p className="text-white/25 text-[10px] font-mono uppercase tracking-[0.2em] mb-3">
+                {lang === 'it' ? 'Resta aggiornato' : 'Stay updated'}
+              </p>
+              <form onSubmit={handleFormSubmit} className="flex gap-2 w-full max-w-xs">
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="email"
+                  className="flex-1 bg-white/5 border border-white/15 rounded-md px-3 py-1.5 text-xs text-white placeholder-white/20 font-mono focus:outline-none focus:border-white/40 transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={formState.submitting}
+                  className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider text-white/60 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-white/30 rounded-md transition-all disabled:opacity-40"
+                >
+                  {formState.submitting ? '...' : '→'}
+                </button>
+              </form>
+            </>
+          )}
+        </motion.div>
+
+        {/* Author + LinkedIn */}
         <motion.div
           variants={{
             hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { delay: 1.5, duration: 0.8 } },
+            visible: { opacity: 1, transition: { delay: 1.6, duration: 0.6 } },
           }}
-          className="flex flex-col items-center gap-4"
+          className="flex items-center gap-3"
         >
-          <span className="text-white/25 text-[10px] font-mono tracking-[0.3em] uppercase">
-            {lang === 'it' ? 'Scroll' : 'Scroll'}
+          <span className="text-white/20 text-[10px] font-mono">
+            {lang === 'it' ? 'di' : 'by'}
           </span>
+          <a
+            href="https://www.linkedin.com/in/luca-de-angelis/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-white/40 hover:text-white/70 transition-colors group"
+          >
+            <span className="text-xs font-display">Luca De Angelis</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="opacity-50 group-hover:opacity-100 transition-opacity">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { delay: 2, duration: 0.8 } },
+          }}
+          className="mt-6"
+        >
           <motion.div
-            className="w-[1px] bg-gradient-to-b from-white/40 to-transparent"
-            animate={{ height: [20, 40, 20] }}
+            className="w-[1px] h-6 bg-gradient-to-b from-white/30 to-transparent mx-auto"
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>
