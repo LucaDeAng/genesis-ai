@@ -23,6 +23,8 @@ export function AmbientPlayer() {
     audio.addEventListener('canplaythrough', () => {
       setAvailable(true)
       audioRef.current = audio
+      // Auto-play on load (muted browsers will block, user can click to enable)
+      audio.play().then(() => setPlaying(true)).catch(() => {})
     })
 
     // If file doesn't exist, silently hide the player
