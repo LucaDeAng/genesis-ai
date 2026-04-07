@@ -2,7 +2,7 @@
 
 An interactive scrollytelling experience that tells the history of AI as the evolution of the universe.
 
-**[Live Demo](https://lucadeang.github.io/proteo/)**
+**[Live Demo](https://lucadeang.github.io/genesis-ai/)**
 
 ## The Experience
 

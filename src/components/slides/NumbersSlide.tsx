@@ -107,8 +107,8 @@ export default function NumbersSlide({ active, index }: Props) {
   }, [confirmedYear, birthMilestone, lang])
 
   const shareUrl = confirmedYear
-    ? `https://lucadeang.github.io/proteo/?birthYear=${confirmedYear}`
-    : 'https://lucadeang.github.io/proteo/'
+    ? `https://lucadeang.github.io/genesis-ai/?birthYear=${confirmedYear}`
+    : 'https://lucadeang.github.io/genesis-ai/'
 
   const shareNative = async () => {
     if (navigator.share) {
